@@ -6,6 +6,7 @@ export default function AddEntry() {
   const { entries, setEntries } = useEntries();
 
   const [type, setType] = useState("income");
+  const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [value, setValue] = useState("");
 
@@ -16,6 +17,10 @@ export default function AddEntry() {
           className="flex gap-2"
           onSubmit={(e) => {
             e.preventDefault();
+            if (!category) {
+              alert("Select a Category");
+              return;
+            }
             console.log("submitted");
             setEntries([
               ...entries,
@@ -24,10 +29,29 @@ export default function AddEntry() {
                 title: title,
                 value: parseFloat(value),
                 type: type,
+                category: category,
               },
             ]);
           }}
         >
+          <select
+            id="type"
+            name="type"
+            className="block w-40 shrink-0 rounded-md border-0 px-3 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            value={category}
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+          >
+            <option value="">Category</option>
+            <option value="Freelancing">Freelancing</option>
+            <option value="Salary">Salary</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Utility Bill">Utility Bill</option>
+            <option value="Rent">Rent</option>
+            <option value="Entertainment">Entertainment</option>
+          </select>
+
           <select
             id="type"
             name="type"
