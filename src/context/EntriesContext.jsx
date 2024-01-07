@@ -1,16 +1,18 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
+import useList from "../hooks/useList";
 export const EntriesContext = createContext();
 
 export function EntriesProvider({ children }) {
-  const [entries, setEntries] = useState(function () {
-    const value = localStorage.getItem("entries");
-    if (!value) return [];
-    return JSON.parse(value);
-  });
+  const [entries, setEntries, deleteEntry] = useList();
+  // const [entries, setEntries] = useState(function () {
+  //   const value = localStorage.getItem("entries");
+  //   if (!value) return [];
+  //   return JSON.parse(value);
+  // });
 
-  useEffect(() => {
-    localStorage.setItem("entries", JSON.stringify(entries));
-  }, [entries]);
+  // useEffect(() => {
+  //   localStorage.setItem("entries", JSON.stringify(entries));
+  // }, [entries]);
 
   const totalIncome = entries
     .filter((entry) => entry.type === "income")
@@ -22,7 +24,7 @@ export function EntriesProvider({ children }) {
 
   return (
     <EntriesContext.Provider
-      value={{ entries, setEntries, totalIncome, totalExpense }}
+      value={{ entries, setEntries, totalIncome, totalExpense, deleteEntry }}
     >
       {children}
     </EntriesContext.Provider>

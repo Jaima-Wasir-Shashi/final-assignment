@@ -8,7 +8,7 @@ export default function Navbar() {
         </h2>
         <div className="flex items-center gap-4">
           <h2>Jaima Wasir Shashi</h2>
-          <a href="#" className="undeline text-sm text-white/50">
+          <a href="#" className="underline text-sm text-white/50">
             Sign Out
           </a>
         </div>

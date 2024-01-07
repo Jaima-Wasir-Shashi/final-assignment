@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useEntries } from "../hooks/useEntries";
 
 export default function AddEntry() {
-  const { entries, setEntries } = useEntries();
+  const { setEntries } = useEntries();
 
   const [type, setType] = useState("income");
   const [category, setCategory] = useState("");
@@ -22,16 +21,12 @@ export default function AddEntry() {
               return;
             }
             console.log("submitted");
-            setEntries([
-              ...entries,
-              {
-                id: uuidv4(),
+            setEntries({
                 title: title,
                 value: parseFloat(value),
                 type: type,
                 category: category,
-              },
-            ]);
+              });
           }}
         >
           <select

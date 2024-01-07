@@ -2,7 +2,7 @@ import { formatMoney } from "../utils/format-money";
 import { useEntries } from "../hooks/useEntries";
 
 export default function ExpenseList() {
-    const { entries, setEntries } = useEntries();
+    const { entries, deleteEntry } = useEntries();
     const expenseEntries = entries.filter((entry) => entry.type === "expense");
 
     return (
@@ -23,7 +23,7 @@ export default function ExpenseList() {
             <ul id="expense-list" className="divide-y">
                 {expenseEntries.map((item) => {
                     return (
-                        <li key={item.id} className="py-2.5">
+                        <li key={item._id} className="py-2.5">
                             <div className="group flex justify-between gap-2 text-sm">
                                 <span>{item.title}</span>
                                 <span>{item?.category}</span>
@@ -33,15 +33,7 @@ export default function ExpenseList() {
                                     </span>
                                     <span
                                         onClick={() => {
-                                            setEntries((prev) => {
-                                                const filtered = [
-                                                    ...prev,
-                                                ].filter(
-                                                    (value) =>
-                                                        value.id !== item.id
-                                                );
-                                                return filtered;
-                                            });
+                                            deleteEntry(item._id);
                                         }}
                                         className="ml-2 hidden cursor-pointer font-medium text-red-500 group-hover:inline-block"
                                     >
